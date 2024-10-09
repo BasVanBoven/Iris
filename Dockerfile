@@ -33,12 +33,12 @@ WORKDIR /usr/src/gst-plugins-rs
 
 # Install kingsofsticks version of gst-plugins-rs (Hack, not released yet!)
 # Clone source of gst-plugins-rs to workdir
-ARG GST_PLUGINS_RS_TAG=0.10.5
+ARG GST_PLUGINS_RS_TAG=0.13-librespot-dev
 RUN git clone -c advice.detachedHead=false \
-	--single-branch --depth 1 \
-	--branch ${GST_PLUGINS_RS_TAG} \
-	# https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git ./
-	https://gitlab.freedesktop.org/kingosticks/gst-plugins-rs.git ./
+        --single-branch --depth 1 \
+        --branch ${GST_PLUGINS_RS_TAG} \
+        https://gitlab.freedesktop.org/kingosticks/gst-plugins-rs.git ./ \
+ && git reset --hard dfb52c5e1b0415f5accd7c25d39b1828dad285f0 
 
 # Build GStreamer plugins written in Rust (optional with --no-default-features)
 ENV DEST_DIR /target/gst-plugins-rs
