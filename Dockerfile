@@ -139,6 +139,11 @@ RUN git clone -b v5.0.0alpha --depth 1 https://github.com/mopidy/mopidy-spotify.
  && cd .. \
  && rm -rf mopidy-spotify
 
+# Install gst-plugin-spotify 0.14.0 (Hack, not released yet!)
+RUN wget -q -O /tmp/gst-plugin-spotify.deb https://github.com/kingosticks/gst-plugins-rs-build/releases/download/gst-plugin-spotify_0.14.0-alpha.1-1/gst-plugin-spotify_0.14.0.alpha.1-1_amd64.deb \
+  && dpkg -i /tmp/gst-plugin-spotify.deb \
+  && rm /tmp/gst-plugin-spotify.deb
+
 # Install additional mopidy extensions and Python dependencies via pip
 COPY docker/requirements.txt .
 RUN python3 -m pip install -r requirements.txt
