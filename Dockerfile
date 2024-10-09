@@ -31,12 +31,14 @@ RUN apt update \
 
 WORKDIR /usr/src/gst-plugins-rs
 
+# Install kingsofsticks version of gst-plugins-rs (Hack, not released yet!)
 # Clone source of gst-plugins-rs to workdir
 ARG GST_PLUGINS_RS_TAG=0.10.5
 RUN git clone -c advice.detachedHead=false \
 	--single-branch --depth 1 \
 	--branch ${GST_PLUGINS_RS_TAG} \
-	https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git ./
+	# https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git ./
+	https://gitlab.freedesktop.org/kingosticks/gst-plugins-rs.git ./
 
 # Build GStreamer plugins written in Rust (optional with --no-default-features)
 ENV DEST_DIR /target/gst-plugins-rs
@@ -129,9 +131,9 @@ RUN git clone --depth 1 --single-branch -b ${IRIS_VERSION} https://github.com/ja
  # Copy Version file
  && cp /iris/VERSION /
 
-# Install mopidy-spotify-gstspotify (Hack, not released yet!)
+# Install mopidy-spotify-gstspotify v5 alpha 3 (Hack, not released yet!)
 # (https://github.com/kingosticks/mopidy-spotify/tree/gstspotifysrc-hack)
-RUN git clone --depth 1 https://github.com/mopidy/mopidy-spotify.git mopidy-spotify \
+RUN git clone -b v5.0.0alpha --depth 1 https://github.com/mopidy/mopidy-spotify.git mopidy-spotify \
  && cd mopidy-spotify \
  && python3 setup.py install \
  && cd .. \
